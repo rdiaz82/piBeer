@@ -1,0 +1,175 @@
+<!DOCTYPE html> {% load i18n %} {% load staticfiles %}
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>PiBeer</title>
+
+  <!-- Bootstrap Core CSS -->
+
+  <link href={% static "css/bootstrap.min.css" %} rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link href={% static "css/sb-admin.css"%} rel="stylesheet">
+  <link href={% static "css/custom.css" %} rel="stylesheet">
+
+  <!-- Morris Charts CSS -->
+  <link href={% static "css/plugins/morris.css"%} rel="stylesheet">
+
+  <!-- Custom Fonts -->
+  <link href={% static "font-awesome/css/font-awesome.min.css"%} rel="stylesheet" type="text/css">
+  <link href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css">
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+  <div id="wrapper" class="wrapper-height">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          {}
+        </button>
+        <a class="" href="{% url 'index' %}">
+          <img src={% static "images/logo.png"%} style="height:30px; margin:10px;"> </img>
+        </a>
+      </div>
+      <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+      <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <ul class="nav navbar-nav side-nav">
+          <li class="active hiddenInLarge">
+            <row>
+              <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                <div class="customMenuButton">
+                  <div style="text-align: center; margin-top:10px;">
+                    <i class="ionicons ion-speedometer" style="text-align: center; font-size: 30px;"></i>
+                  </div>
+                  <div style="text-align: center">
+                    Dashboard
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                <div class="customMenuButton">
+                  <div style="text-align: center; margin-top:10px;">
+                    <i class="ionicons ion-stats-bars" style="text-align: center; font-size: 30px;"></i>
+                  </div>
+                  <div style="text-align: center">
+                    Graphs
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                <div class="customMenuButton">
+                  <div style="text-align: center; margin-top:10px;">
+                    <i class="ionicons ion-ios-flask-outline" style="text-align: center; font-size: 30px;"></i>
+                  </div>
+                  <div style="text-align: center">
+                    Calibrate
+                  </div>
+                </div>
+              </div>
+            </row>
+          </li>
+
+          <li class="active hiddenInLarge">
+            <row>
+              <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+              </div>
+              <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                <div class="customMenuButton">
+                  <div style="text-align: center; margin-top:10px;">
+                    <i class="ionicons ion-gear-b" style="text-align: center; font-size: 30px;"></i>
+                  </div>
+                  <div style="text-align: center">
+                    Configuration
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+              </div>
+            </row>
+          </li>
+            {% url 'index' as url %}
+          <li class= {% if request.path == url %}"hiddenInSmall active"{% else %}"hiddenInSmall"{% endif %}>
+            <a href="{{ url }}">{%trans "DashBoard" %}</a>
+          </li>
+
+          {% url 'recipe_manager_recipes' as url1 %}
+          {% url 'recipe_manager_products' as url2 %}
+          <li>
+            <a href="javascript:;" data-toggle="collapse" data-target="#recipes"><i class="fa fa-fw fa-pencil-square-o"></i> Recipe Manager <i class="fa fa-fw fa-caret-down"></i></a>
+            <ul id="recipes" {%if request.path == url1 or request.path == url2 %}class="collapse in"{% else %}class="collapse"{% endif %}>
+
+                <li {% if request.path == url1 %} class="active-drop active"{% endif %}>
+                <a href="{{ url1 }}" {% if request.path == url1 %} class="active-drop-li"{% endif %}>{%trans "Recipes" %}</a>
+              </li>
+
+              <li {% if request.path == url2 %} class="active-drop"{% endif %}>
+                <a href="{{ url2 }}" {% if request.path == url2 %} class="active-drop-li"{% endif %}>{%trans "Products" %}</a>
+              </li>
+            </ul>
+          </li>
+          </li>
+          <li class="hiddenInSmall">
+            <a href="#"><i class="fa fa-fw fa-rocket"></i>{%trans "Beer Batches" %}</a>
+          </li>
+          <li class="hiddenInSmall">
+            <a href="javascript:;" data-toggle="collapse" data-target="#configuration"><i class="fa fa-fw fa-cog"></i> Configuration <i class="fa fa-fw fa-caret-down"></i></a>
+            <ul id="configuration" class="collapse">
+              <li>
+                <a href="#">Dropdown Item</a>
+              </li>
+              <li>
+                <a href="#">Dropdown Item</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </nav>
+
+    <div id="page-wrapper" class="wrapper-height">
+      <div class="container-fluid container-fluid-height">
+        {% block main %}{% endblock %}
+      </div>
+    </div>
+    <!-- /#page-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- jQuery -->
+  <script src={% static "js/jquery.js" %}></script>
+
+  <!-- Bootstrap Core JavaScript -->
+  <script src={% static "js/bootstrap.min.js" %}></script>
+
+  <!-- Morris Charts JavaScript -->
+  <script src={% static "js/plugins/morris/raphael.min.js" %}></script>
+  <script src={% static "js/plugins/morris/morris.min.js" %}></script>
+  <script src={% static "js/plugins/morris/morris-data.js" %}></script>
+
+</body>
+
+</html>
