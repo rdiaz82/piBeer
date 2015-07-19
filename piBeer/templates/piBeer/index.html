@@ -109,23 +109,22 @@
               </div>
             </row>
           </li>
-            {% url 'index' as url %}
-          <li class= {% if request.path == url %}"hiddenInSmall active"{% else %}"hiddenInSmall"{% endif %}>
+          {% url 'index' as url %}
+          <li class={%if request.path == url %} "hiddenInSmall active"{% else %} "hiddenInSmall"{% endif %}>
             <a href="{{ url }}">{%trans "DashBoard" %}</a>
           </li>
 
-          {% url 'recipe_manager_recipes' as url1 %}
-          {% url 'recipe_manager_products' as url2 %}
+          {% url 'recipe_manager_recipes' as url1 %} {% url 'recipe_manager_products' as url2 %}
           <li>
             <a href="javascript:;" data-toggle="collapse" data-target="#recipes"><i class="fa fa-fw fa-pencil-square-o"></i> Recipe Manager <i class="fa fa-fw fa-caret-down"></i></a>
-            <ul id="recipes" {%if request.path == url1 or request.path == url2 %}class="collapse in"{% else %}class="collapse"{% endif %}>
+            <ul id="recipes" {%if request.path == url1 or request.path == url2 %}class="collapse in" {% else %} class="collapse" {% endif %}>
 
-                <li {% if request.path == url1 %} class="active-drop active"{% endif %}>
-                <a href="{{ url1 }}" {% if request.path == url1 %} class="active-drop-li"{% endif %}>{%trans "Recipes" %}</a>
+              <li {% if request.path == url1 %} class="active-drop active" {% endif %}>
+                <a href="{{ url1 }}" {% if request.path == url1 %} class="active-drop-li" {% endif %}>{%trans "Recipes" %}</a>
               </li>
 
-              <li {% if request.path == url2 %} class="active-drop"{% endif %}>
-                <a href="{{ url2 }}" {% if request.path == url2 %} class="active-drop-li"{% endif %}>{%trans "Products" %}</a>
+              <li {% if request.path == url2 %} class="active-drop" {% endif %}>
+                <a href="{{ url2 }}" {% if request.path == url2 %} class="active-drop-li" {% endif %}>{%trans "Products" %}</a>
               </li>
             </ul>
           </li>
@@ -164,11 +163,9 @@
 
   <!-- Bootstrap Core JavaScript -->
   <script src={% static "js/bootstrap.min.js" %}></script>
+  <script src={% static "js/plugins/js.cookie/js.cookie.js" %}></script>
 
-  <!-- Morris Charts JavaScript -->
-  <script src={% static "js/plugins/morris/raphael.min.js" %}></script>
-  <script src={% static "js/plugins/morris/morris.min.js" %}></script>
-  <script src={% static "js/plugins/morris/morris-data.js" %}></script>
+  {% block customjs %}{% endblock %}
 
 </body>
 

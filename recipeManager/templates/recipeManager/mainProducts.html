@@ -1,5 +1,27 @@
-{% extends "piBeer/index.html" %}
+{% extends "piBeer/singleTable.html" %}
 {% load i18n %}
-{% block main %}
-  <h1>HOLA2</h1>
-{% endblock%}
+{% load staticfiles %}
+
+{% block additionalJS %}
+  <script src={% static "recipeManager/js/custom/mainProducts.js" %}></script>
+  <script type="text/javascript">
+    newModalTitle='{{ newModalTitle }}';
+    editModalTitle='{{ editModalTitle }}';
+    deleteModalTitle='{{ deleteModalTitle }}';
+    deleteModalConfirmation='{{ deleteModalConfirmation }}';
+    newProductUrl="{% url 'recipe_manager_add_product' %}";
+  </script>
+{% endblock %}
+
+{% block filterDefinition%}
+  Filter!!!
+{% endblock %}
+
+
+{% block mainTable %}
+  {% include 'recipeManager/productTable.html' with product_list=product_list%}
+{% endblock %}
+
+{% block modalContent%}
+  <h1>Modal Content</h1>
+{% endblock %}
