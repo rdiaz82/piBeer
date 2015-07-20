@@ -37,18 +37,30 @@ function openEditModal(){
 }
 
 function submitForm(button) {
-  $.post(newProductUrl, $('#mainForm').serialize())
+
+  url=newProductUrl+(selectedRow!=-1?selectedRow:"")+"/";
+
+  $.post(url, $('#mainForm').serialize())
   .done(function(data){
-      if(Cookies.get("result")=="ok"){
         $('#mainTable').html(data);
         $('#mainModal').modal('hide');
-      } else {
-        $(".modal-body").html(data);
-      }
-  });
+  })
+  .fail( function(xhr, textStatus, errorThrown) {
+        if (errorThrown=="BAD REQUEST")
+          $(".modal-body").html(xhr.responseText);
+        else
+          //TODO: Change the error by a nice Dialog :)
+          $(".modal-body").html("ERROR");
+    });
 }
 
 function rowClick(row){
+    if ($(row).attr('data-id')==selectedRow){
+      selectedRow=-1;
+      $('#mainTable>tbody>tr').removeClass("info");
+      return;
+    }
+    
     selectedRow=$(row).attr('data-id');
     $('#mainTable>tbody>tr').removeClass("info");
     $(row).addClass("info");

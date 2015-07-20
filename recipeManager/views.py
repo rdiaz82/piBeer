@@ -20,22 +20,27 @@ def recipes(request):
 
 
 def ajax_create_product_form(request, product_id=None):
-    if (request.method == 'POST'):
-        form=ProductForm(request.POST)
-        if form.is_valid():
-            form.save()
-            products = Product.objects.all()
-            response = render(request, 'recipeManager/productTable.html', {'list_product': products},)
-            response.set_cookie('result', 'ok')
-            return response
-        else:
-            response = render(request, 'recipeManager/modalForm.html', {'form': form},)
-            response.set_cookie('result', 'formError')
-            return response
+  if (request.method == 'POST'):
+    if product_id != None:
+      item = Product.objects.get(id=product_id)
+      form = ProductForm(request.POST or None, instance=item)
     else:
-        if product_id:
-            item = Product.objects.get(id=product_id)
-            form = ProductForm(instance=item)
-        else:
-            form = ProductForm()
-        return render(request, 'recipeManager/modalForm.html', {'form': form},)
+      form = ProductForm(request.POST)
+
+    if form.is_valid():
+      form.save()
+      products = Product.objects.all()
+      response = render(
+          request, 'recipeManager/productTable.html', {'product_list': products},)
+      return response
+    else:
+      response = render(
+          request, 'recipeManager/modalForm.html', {'form': form}, status=400)
+      return response
+  else:
+    if product_id:
+      item = Product.objects.get(id=product_id)
+      form = ProductForm(instance=item)
+    else:
+      form = ProductForm()
+    return render(request, 'recipeManager/modalForm.html', {'form': form},)
