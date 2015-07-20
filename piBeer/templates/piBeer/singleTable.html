@@ -7,7 +7,11 @@
 {% endblock %}
 
 {% block main %}
+<div class="alert alert-warning fixed-alert" id="errorAlert">
+  please select a row before proceed
+</div>
   <div class="col-lg-12">
+
     <h1 class="page-header">{{title}}</h1>
     <div class="row">
       {% block noFilters %}
@@ -32,7 +36,7 @@
           <div class="panel-body text-center">
                 <button type="button" class="btn btn-success"  onclick="openCreateModal();" ><i class="fa fa-plus-circle"></i></button>
                 <button type="button" class="btn btn-warning" onclick="openEditModal();"><i class="fa fa-pencil-square-o"></i></button>
-                <button type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                <button type="button" class="btn btn-danger" onclick="openDeleteModal();"><i class="fa fa-trash"></i></button>
           </div>
       </div>
   </div>
@@ -58,5 +62,21 @@
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="deleteModal" role="dialog" aria-labelledby="gridSystemModalLabel">
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <h4 class="modal-title" id="gridSystemModalLabel">Delete Element</h4>
+    </div>
+    <div class="modal-body">Do you really want to delete the element?</div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger" onclick="deleteElement();">Yes</button>
+      <button type="button" class="btn btn-warning" data-dismiss="modal" >No</i></button>
+    </div>
+  </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 {% endblock%}

@@ -10,6 +10,7 @@
     deleteModalTitle='{{ deleteModalTitle }}';
     deleteModalConfirmation='{{ deleteModalConfirmation }}';
     newProductUrl="{% url 'recipe_manager_add_product' %}";
+    deleteProductUrl="{% url 'recipe_manager_delete_product' product_id=-1 %}";
   </script>
 {% endblock %}
 

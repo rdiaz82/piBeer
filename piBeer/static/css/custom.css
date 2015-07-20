@@ -49,6 +49,13 @@ html, body{
 
 }
 
+.fixed-alert{
+	position:absolute;
+	top:0;
+	left:45%;
+	z-index:100;
+}
+
 @media(min-width:768px) {
 	.hiddenInLarge{
 		display:none !important;

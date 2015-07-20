@@ -44,3 +44,10 @@ def ajax_create_product_form(request, product_id=None):
     else:
       form = ProductForm()
     return render(request, 'recipeManager/modalForm.html', {'form': form},)
+
+def ajax_delete_product(request,product_id):
+    Product.objects.filter(id=product_id).delete()
+    products = Product.objects.all()
+    response = render(
+        request, 'recipeManager/productTable.html', {'product_list': products},)
+    return response
