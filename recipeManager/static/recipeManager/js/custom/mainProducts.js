@@ -50,12 +50,13 @@ function openDeleteModal(){
 
 function submitForm(button) {
 
-  url=newProductUrl+(selectedRow!=-1?selectedRow:"")+"/";
+  url=newProductUrl+(selectedRow!=-1?selectedRow+"/":"");
 
   $.post(url, $('#mainForm').serialize())
   .done(function(data){
         $('#mainTable').html(data);
         $('#mainModal').modal('hide');
+        selectedRow=-1;
   })
   .fail( function(xhr, textStatus, errorThrown) {
         if (errorThrown=="BAD REQUEST")
@@ -71,6 +72,7 @@ function deleteElement(){
   .done(function(data){
         $('#mainTable').html(data);
         $('#deleteModal').modal('hide');
+        selectedRow=-1;
   });
 }
 
