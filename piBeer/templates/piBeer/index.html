@@ -148,8 +148,8 @@
       <!-- /.navbar-collapse -->
     </nav>
 
-    <div id="page-wrapper" class="wrapper-height">
-      <div class="container-fluid container-fluid-height">
+    <div id="page-wrapper">
+      <div class="container-fluid ">
         {% block main %}{% endblock %}
       </div>
     </div>
@@ -164,6 +164,7 @@
   <!-- Bootstrap Core JavaScript -->
   <script src={% static "js/bootstrap.min.js" %}></script>
   <script src={% static "js/plugins/js.cookie/js.cookie.js" %}></script>
+  <script src={% static "js/plugins/stickytable/jquery.stickytableheaders.min.js" %}></script>
 
   {% block customjs %}{% endblock %}
 

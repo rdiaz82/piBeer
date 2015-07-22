@@ -11,9 +11,11 @@ html, body{
 	color:#FFFFFF!important;
 }
 
-.container-fluid-height{
-	/*height:100%;*/
-	/*overflow-y: hidden;*/
+.fixed-header{
+	position: fixed;
+	background-color:#fff;
+	z-index:10;
+	margin-top: -10px;
 }
 
 .wrapper-height{
