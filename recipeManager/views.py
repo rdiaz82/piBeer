@@ -2,16 +2,19 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from recipeManager.models import Product
 from .forms import ProductForm
+from .forms import ProductFilterForm
 
 
 def products(request):
   products = Product.objects.all()
+  filterForm= ProductFilterForm()
   context = {"title": "Products",
+             "filter_form": filterForm,
              "product_list": products,
              "newModalTitle": "New Product",
              "editModalTitle": "Edit Product",
              "deleteModalTitle": "Delete Product",
-             "deleteModalConfirmation": "Are you sure to delete de product?", }
+             "deleteModalConfirmation": "Are you sure to delete the product?", }
   return render(request, 'recipeManager/mainProducts.html', context)
 
 

@@ -14,8 +14,8 @@
   </script>
 {% endblock %}
 
-{% block filterDefinition%}
-  Filter!!!
+{% block filtersDefinition%}
+  {% include 'recipeManager/productFilterForm.html' with form=filter_form%}
 {% endblock %}
 
 
