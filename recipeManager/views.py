@@ -56,14 +56,13 @@ def ajax_delete_product(request,product_id):
     return response
 
 def ajax_filter_product(request):
-    print ('called')
     form=ProductFilterForm(request.POST)
     if form.is_valid():
         list = Product.objects.all()
         if form.cleaned_data['name']:
-            list=Product.objects.filter(name__icontains=form.cleaned_data['name'])
+            list=list.filter(name__icontains=form.cleaned_data['name'])
         if form.cleaned_data['product_type']:
-            list=Product.objects.filter(product_type=form.cleaned_data['product_type'])
+            list=list.filter(product_type=form.cleaned_data['product_type'])
     else:
         list=Product.objects.all()
     response = render(
