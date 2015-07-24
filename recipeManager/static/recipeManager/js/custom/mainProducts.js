@@ -88,6 +88,25 @@ function rowClick(row){
     $(row).addClass("info");
   }
 
+function filterProduct(button){
+  $(button).find('i').removeClass('fa-search');
+  $(button).find('i').addClass('fa-refresh fa-spin');
+
+  $.post(filterProductUrl, $('#filterForm').serialize())
+  .done(function(data){
+
+      $(button).find('i').removeClass('fa-refresh fa-spin');
+      $(button).find('i').addClass('fa-search');
+        $('#mainTable').html(data);
+        selectedRow=-1;
+  })
+  .fail( function(xhr, textStatus, errorThrown) {
+      $(button).find('i').removeClass('fa-refresh fa-spin');
+      $(button).find('i').addClass('fa-search');
+        //TODO: Change the error by a nice dialog :)
+    });
+}
+
 
 
 $(document).ready(function() {

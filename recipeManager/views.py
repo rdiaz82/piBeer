@@ -2,16 +2,19 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from recipeManager.models import Product
 from .forms import ProductForm
+from .forms import ProductFilterForm
 
 
 def products(request):
   products = Product.objects.all()
+  filterForm= ProductFilterForm()
   context = {"title": "Products",
+             "filter_form": filterForm,
              "product_list": products,
              "newModalTitle": "New Product",
              "editModalTitle": "Edit Product",
              "deleteModalTitle": "Delete Product",
-             "deleteModalConfirmation": "Are you sure to delete de product?", }
+             "deleteModalConfirmation": "Are you sure to delete the product?", }
   return render(request, 'recipeManager/mainProducts.html', context)
 
 
@@ -50,4 +53,19 @@ def ajax_delete_product(request,product_id):
     products = Product.objects.all()
     response = render(
         request, 'recipeManager/productTable.html', {'product_list': products},)
+    return response
+
+def ajax_filter_product(request):
+    print ('called')
+    form=ProductFilterForm(request.POST)
+    if form.is_valid():
+        list = Product.objects.all()
+        if form.cleaned_data['name']:
+            list=Product.objects.filter(name__icontains=form.cleaned_data['name'])
+        if form.cleaned_data['product_type']:
+            list=Product.objects.filter(product_type=form.cleaned_data['product_type'])
+    else:
+        list=Product.objects.all()
+    response = render(
+        request, 'recipeManager/productTable.html', {'product_list': list},)
     return response

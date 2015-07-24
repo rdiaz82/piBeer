@@ -11,11 +11,12 @@
     deleteModalConfirmation='{{ deleteModalConfirmation }}';
     newProductUrl="{% url 'recipe_manager_add_product' %}";
     deleteProductUrl="{% url 'recipe_manager_delete_product' product_id=-1 %}";
+    filterProductUrl="{% url 'recipe_manager_filter_product' %}";
   </script>
 {% endblock %}
 
-{% block filterDefinition%}
-  Filter!!!
+{% block filtersDefinition%}
+  {% include 'recipeManager/productFilterForm.html' with form=filter_form%}
 {% endblock %}
 
 
