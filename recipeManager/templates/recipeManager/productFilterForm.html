@@ -1,4 +1,4 @@
-<form action="{% url 'recipe_manager_add_product' %}" id="filterForm" method="post">
+<form id="filterForm" method="post">
   <div class="row">
     {% csrf_token %}
     {{ form.non_field_errors }}

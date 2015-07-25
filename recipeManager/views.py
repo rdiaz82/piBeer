@@ -22,9 +22,9 @@ def recipes(request):
   return render(request, 'recipeManager/mainRecipes.html')
 
 
-def ajax_create_product_form(request, product_id=None):
+def ajax_create_edit_product_form(request, product_id):
   if (request.method == 'POST'):
-    if product_id != None:
+    if product_id != '-1':
       item = Product.objects.get(id=product_id)
       form = ProductForm(request.POST or None, instance=item)
     else:
@@ -41,7 +41,7 @@ def ajax_create_product_form(request, product_id=None):
           request, 'recipeManager/modalForm.html', {'form': form}, status=400)
       return response
   else:
-    if product_id:
+    if product_id != '-1':
       item = Product.objects.get(id=product_id)
       form = ProductForm(instance=item)
     else:
