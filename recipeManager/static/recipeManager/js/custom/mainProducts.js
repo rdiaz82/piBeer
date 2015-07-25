@@ -32,7 +32,7 @@ function openEditModal(){
     '<i class="fa fa-spinner fa-5x fa-spin"></i>' +
     '</div></div></div>');
   $.ajax({
-    url: newProductUrl+selectedRow+"/",
+    url: newProductUrl.replace('-1',selectedRow),
     success: function(result) {
       $(".modal-body").html(result);
     }
@@ -49,8 +49,10 @@ function openDeleteModal(){
 }
 
 function submitForm(button) {
-
-  url=newProductUrl+(selectedRow!=-1?selectedRow+"/":"");
+  if (selectedRow!=-1)
+    url=newProductUrl.replace("-1",selectedRow);
+  else
+    url =newProductUrl;
 
   $.post(url, $('#mainForm').serialize())
   .done(function(data){
