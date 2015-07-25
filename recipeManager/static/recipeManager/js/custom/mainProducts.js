@@ -49,6 +49,7 @@ function openDeleteModal(){
 }
 
 function submitForm(button) {
+  $(button).prop('disabled','true');
   if (selectedRow!=-1)
     url=newProductUrl.replace("-1",selectedRow);
   else
@@ -58,14 +59,17 @@ function submitForm(button) {
   .done(function(data){
         $('#mainTable').html(data);
         $('#mainModal').modal('hide');
+        $(button).removeAttr('disabled')
         selectedRow=-1;
   })
   .fail( function(xhr, textStatus, errorThrown) {
-        if (errorThrown=="BAD REQUEST")
+        if (errorThrown=="BAD REQUEST"){
           $(".modal-body").html(xhr.responseText);
-        else
-          //TODO: Change the error by a nice Dialog :)
-          $(".modal-body").html("ERROR");
+          $(button).removeAttr('disabled')
+        }else{
+          bootbox.alert("Problem with connection, please, try again.");
+          $(button).removeAttr('disabled')
+        }
     });
 }
 
@@ -93,19 +97,22 @@ function rowClick(row){
 function filterProduct(button){
   $(button).find('i').removeClass('fa-search');
   $(button).find('i').addClass('fa-refresh fa-spin');
+  $(button).prop('disabled','true')
 
   $.post(filterProductUrl, $('#filterForm').serialize())
   .done(function(data){
 
       $(button).find('i').removeClass('fa-refresh fa-spin');
       $(button).find('i').addClass('fa-search');
+      $(button).removeAttr('disabled')
         $('#mainTable').html(data);
         selectedRow=-1;
   })
   .fail( function(xhr, textStatus, errorThrown) {
       $(button).find('i').removeClass('fa-refresh fa-spin');
       $(button).find('i').addClass('fa-search');
-        //TODO: Change the error by a nice dialog :)
+      $(button).removeAttr('disabled')
+      bootbox.alert("Problem with connection, please, try again.");
     });
 }
 
