@@ -1,6 +1,7 @@
 from django.forms import ModelForm, TextInput, Select, Textarea
 from recipeManager.models import Product
 from recipeManager.models import ProductType
+from recipeManager.models import Recipe
 from django import forms
 
 class ProductForm(ModelForm):
@@ -10,6 +11,15 @@ class ProductForm(ModelForm):
         widgets = {
             'name': TextInput(attrs={'class': 'form-control'}),
             'product_type': Select(attrs={'class': 'form-control'}),
+            'description': Textarea(attrs={'class': 'form-control','col':3,'row':3}),
+        }
+
+class RecipeForm(ModelForm):
+    class Meta:
+        model = Recipe
+        fields = ['name', 'description']
+        widgets = {
+            'name': TextInput(attrs={'class': 'form-control'}),
             'description': Textarea(attrs={'class': 'form-control','col':3,'row':3}),
         }
 
