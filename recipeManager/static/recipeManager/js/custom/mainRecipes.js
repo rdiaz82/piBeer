@@ -83,15 +83,17 @@ function deleteElement(){
 }
 
 function rowClick(row){
-    if ($(row).attr('data-id')==selectedRow){
-      selectedRow=-1;
-      $('#mainTable>tbody>tr').removeClass("info");
-      return;
-    }
-
     selectedRow=$(row).attr('data-id');
     $('#mainTable>tbody>tr').removeClass("info");
     $(row).addClass("info");
+      url=selectRecipeUrl.replace("-1",selectedRow);
+    $.get(url)
+    .done(function(data){
+          $('#detailPanel').html(data);
+    })
+    .fail( function(xhr, textStatus, errorThrown) {
+        bootbox.alert("Problem with connection, please, try again.");
+      });
   }
 
 function filterElements(button){
@@ -118,4 +120,8 @@ function filterElements(button){
 
 $(document).ready(function() {
   $('#errorAlert').hide();
+  if ($('#mainTable>tbody>tr').length!=0){
+    $('#mainTable>tbody>tr:first').addClass("info");
+    selectedRow=1;
+  }
 });

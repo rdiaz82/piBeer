@@ -4,7 +4,7 @@ from recipeManager.models import Product
 from recipeManager.models import Recipe
 from .forms import ProductForm
 from .forms import ProductFilterForm
-from .forms import IngredientFilterForm
+from .forms import RecipeFilterForm
 from .forms import RecipeForm
 
 
@@ -23,7 +23,7 @@ def products(request):
 
 def recipes(request):
     recipes = Recipe.objects.all()
-    filterForm= IngredientFilterForm()
+    filterForm= RecipeFilterForm()
     context = {"title": "Recipes",
               "filter_form": filterForm,
               "recipe_list": recipes,
@@ -125,4 +125,10 @@ def ajax_filter_recipe(request):
         recipe_list=Recipe.objects.all()
     response = render(
         request, 'recipeManager/recipeTable.html', {'recipe_list': recipe_list},)
+    return response
+
+def ajax_get_recipe_details(request,recipe_id):
+    item = Recipe.objects.get(id=recipe_id)
+    response = render(
+    request, 'recipeManager/recipeDetails.html', {'recipe': item},)
     return response

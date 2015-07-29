@@ -88,6 +88,10 @@ html, body{
 	background-color:#dddddd;
 }
 
+.margin-left{
+	margin-left: 30px;
+}
+
 
 @media(min-width:768px) {
 	.hiddenInLarge{

@@ -47,10 +47,9 @@
           {% block mainTable %}{% endblock %}
         </table>
     </div>
-    <div class="col-lg-9">
-
-                  {% block detailPanel %}{% endblock %}
-  </div>
+    <div class="col-lg-9" id="detailPanel">
+      {% block detailPanel %}{% endblock %}
+    </div>
 
   <div class="modal fade" id="mainModal" role="dialog" aria-labelledby="gridSystemModalLabel">
   <div class="modal-dialog" role="document">
