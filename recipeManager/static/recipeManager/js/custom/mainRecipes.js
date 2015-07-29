@@ -10,7 +10,7 @@ function openCreateModal() {
     '<i class="fa fa-spinner fa-5x fa-spin"></i>' +
     '</div></div></div>');
   $.ajax({
-    url: newProductUrl,
+    url: newRecipeUrl,
     success: function(result) {
       $(".modal-body").html(result);
     }
@@ -32,7 +32,7 @@ function openEditModal(){
     '<i class="fa fa-spinner fa-5x fa-spin"></i>' +
     '</div></div></div>');
   $.ajax({
-    url: newProductUrl.replace('-1',selectedRow),
+    url: newRecipeUrl.replace('-1',selectedRow),
     success: function(result) {
       $(".modal-body").html(result);
     }
@@ -51,9 +51,9 @@ function openDeleteModal(){
 function submitForm(button) {
   $(button).prop('disabled','true');
   if (selectedRow!=-1)
-    url=newProductUrl.replace("-1",selectedRow);
+    url=newRecipeUrl.replace("-1",selectedRow);
   else
-    url =newProductUrl;
+    url =newRecipeUrl;
 
   $.post(url, $('#mainForm').serialize())
   .done(function(data){
@@ -74,7 +74,7 @@ function submitForm(button) {
 }
 
 function deleteElement(){
-  $.get(deleteProductUrl.replace("-1",selectedRow))
+  $.get(deleteRecipeUrl.replace("-1",selectedRow))
   .done(function(data){
         $('#mainTable').html(data);
         $('#deleteModal').modal('hide');
@@ -99,7 +99,7 @@ function filterElements(button){
   $(button).find('i').addClass('fa-refresh fa-spin');
   $(button).prop('disabled','true')
 
-  $.post(filterProductUrl, $('#filterForm').serialize())
+  $.post(filterRecipeUrl, $('#filterForm').serialize())
   .done(function(data){
 
       $(button).find('i').removeClass('fa-refresh fa-spin');

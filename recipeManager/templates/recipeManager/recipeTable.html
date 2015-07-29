@@ -1,0 +1,12 @@
+<thead>
+  <tr>
+    <th>Recipe Name</th>
+  </tr>
+</thead>
+<tbody>
+{% for recipe in recipe_list %}
+  <tr onclick="rowClick(this);" data-id="{{product.id}}">
+    <td>{{recipe.name}}</td>
+  </tr>
+{% endfor %}
+</tbody>

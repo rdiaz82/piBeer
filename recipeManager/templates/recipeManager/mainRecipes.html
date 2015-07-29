@@ -1,5 +1,48 @@
-{% extends "piBeer/index.html" %}
+{% extends "piBeer/masterDetail.html" %}
 {% load i18n %}
-{% block main %}
-  <h1>HOLA1</h1>
-{% endblock%}
+{% load staticfiles %}
+
+{% block additionalJS %}
+  <script src={% static "recipeManager/js/custom/mainRecipes.js" %}></script>
+  <script type="text/javascript">
+    newModalTitle='{{ newModalTitle }}';
+    editModalTitle='{{ editModalTitle }}';
+    deleteModalTitle='{{ deleteModalTitle }}';
+    deleteModalConfirmation='{{ deleteModalConfirmation }}';
+    newRecipeUrl="{% url 'recipe_manager_add_edit_product' product_id=-1 %}";
+    deleteRecipeUrl="{% url 'recipe_manager_delete_product' product_id=-1 %}";
+    filterRecipeUrl="{% url 'recipe_manager_filter_product' %}";
+  </script>
+{% endblock %}
+
+{% block filtersDefinition%}
+  {% include 'recipeManager/filterForm.html' with form=filter_form%}
+{% endblock %}
+
+
+{% block mainTable %}
+  {% include 'recipeManager/recipeTable.html' with recipe_list=recipe_list%}
+{% endblock %}
+{% block detailPanel %}
+<div  class="tabbable">
+              <ul class="nav nav-tabs navbar-custom">
+                <li class="navbar-link active"><a data-toggle="tab" href="#tab1">General Information</a></li>
+                <li class=" navbar-link"><a data-toggle="tab" href="#tab2">Ingredients</a></li>
+                <li class=" navbar-link"><a data-toggle="tab" href="#tab3">Steps</a></li>
+              </ul>
+              <div class="tab-content">
+                <div id="tab1" class="tab-pane active">
+                  <p>I'm in Section 1.</p>
+                </div>
+                <div id="tab2" class="tab-pane">
+                  <p>Howdy, I'm in Section 2.</p>
+                </div>
+                <div id="tab3" class="tab-pane">
+                  <p>What up girl, this is Section 3.</p>
+                </div>
+              </div>
+            </div>
+{% endblock %}
+{% block modalContent%}
+  <h1>Modal Content</h1>
+{% endblock %}

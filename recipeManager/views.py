@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from recipeManager.models import Product
+from recipeManager.models import Recipe
 from .forms import ProductForm
 from .forms import ProductFilterForm
+from .forms import IngredientFilterForm
 
 
 def products(request):
@@ -19,7 +21,16 @@ def products(request):
 
 
 def recipes(request):
-  return render(request, 'recipeManager/mainRecipes.html')
+    recipes = Recipe.objects.all()
+    filterForm= IngredientFilterForm()
+    context = {"title": "Recipes",
+              "filter_form": filterForm,
+              "recipe_list": recipes,
+              "newModalTitle": "New Product",
+              "editModalTitle": "Edit Product",
+              "deleteModalTitle": "Delete Product",
+              "deleteModalConfirmation": "Are you sure to delete the product?", }
+    return render(request, 'recipeManager/mainRecipes.html',context)
 
 
 def ajax_create_edit_product_form(request, product_id):

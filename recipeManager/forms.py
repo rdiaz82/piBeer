@@ -16,3 +16,6 @@ class ProductForm(ModelForm):
 class ProductFilterForm(forms.Form):
     name=forms.CharField(max_length=50,required=False, widget=forms.TextInput(attrs={'class': "form-control col-lg-3"}))
     product_type=forms.ModelChoiceField(queryset=ProductType.objects.all(), required=False, widget=forms.Select(attrs={'class': 'form-control col-lg-3'}))
+
+class IngredientFilterForm(forms.Form):
+    name=forms.CharField(max_length=50,required=False, widget=forms.TextInput(attrs={'class': "form-control col-lg-3"}))
