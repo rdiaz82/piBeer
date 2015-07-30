@@ -20,6 +20,17 @@ html, body{
 
 .wrapper-height{
 	height:100%;
+	overflow:scroll;
+}
+
+.detail-toolbar{
+	width:93%;
+	margin:30px;
+	margin-top:43px;
+	background-color:white;
+	position:absolute;
+	top:0;
+	left:0;
 }
 
 .ion-5x{

@@ -1,21 +1,324 @@
-<div  class="tabbable">
-              <ul class="nav nav-tabs navbar-custom">
-                <li class="navbar-link active"><a data-toggle="tab" href="#tab1">General Information</a></li>
-                <li class=" navbar-link"><a data-toggle="tab" href="#tab2">Ingredients</a></li>
-                <li class=" navbar-link"><a data-toggle="tab" href="#tab3">Steps</a></li>
-              </ul>
-              <div class="tab-content">
-                <div id="tab1" class="tab-pane active">
-                  <div class="container">
-                    <h4>Recipe</h4><p class="lead span6 margin-left">{{ recipe.name }}</p>
-                    <h4>Description</h4><p class="text-justify margin-left">{{recipe.description}}</p>
-                  </div>
-                </div>
-                <div id="tab2" class="tab-pane">
-                  <p>Howdy, I'm in Section 2.</p>
-                </div>
-                <div id="tab3" class="tab-pane">
-                  <p>What up girl, this is Section 3.</p>
-                </div>
+<div class="tabbable">
+  <ul class="nav nav-tabs navbar-custom">
+    <li class="navbar-link active"><a data-toggle="tab" href="#tab1">General Information</a></li>
+    <li class=" navbar-link"><a data-toggle="tab" href="#tab2">Ingredients</a></li>
+    <li class=" navbar-link"><a data-toggle="tab" href="#tab3">Steps</a></li>
+  </ul>
+  <div class="tab-content">
+    <div id="tab1" class="tab-pane active">
+      <div class="container">
+        <h4>Recipe</h4>
+        <p class="lead span6 margin-left">{{ recipe.name }}</p>
+        <h4>Description</h4>
+        <p class="text-justify margin-left">{{ recipe.description }}</p>
+      </div>
+    </div>
+    <div id="tab2" class="tab-pane">
+      <div class="fixed-header pull-right detail-toolbar">
+          <div class="pull-right" style="margin:10px;">
+          <button type="button" class="btn btn-success"><i class="fa fa-plus-circle"></i></button>
+          <button type="button" class="btn btn-warning"><i class="fa fa-pencil-square-o"></i></button>
+          <button type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+        </div>
+      </div>
+      <div class="container" style="width:700px;">
+        <div style="height:55px"></div>
+        <div class="panel panel-default">
+          <!-- Default panel contents -->
+          <div class="panel-heading">
+            <h4>Malta</h4>
+          </div>
+          <!-- Table -->
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Quantity</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Pale Ale</td>
+                <td>1200g</td>
+              </tr>
+              <tr>
+                <td>Caramel</td>
+                <td>1000g</td>
+              </tr>
+              <tr>
+                <td>Chocolate</td>
+                <td>200g</td>
+              </tr>
+              <tr>
+                <td>Abadía</td>
+                <td>100g</td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading"><h4>Lúpulo</h4></div>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Quantity</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Nelson</td>
+                <td>50g</td>
+              </tr>
+              <tr>
+                <td>East Kent Golding</td>
+                <td>100g</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading"><h4>Aditivos</h4></div>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Quantity</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Candy Sugar</td>
+                <td>250g</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading"><h4>Otros</h4></div>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Quantity</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Agua</td>
+                <td>25L</td>
+              </tr>
+              </tbody>
+          </table>
+        </div>
+
+        <div style="height:55px"></div>
+      </div>
+    </div>
+    <div id="tab3" class="tab-pane">
+      <div class="container" style="width:700px;">
+        <ul class="timeline">
+          <li>
+            <div class="timeline-badge"><i class="glyphicon glyphicon-check"></i></div>
+            <div class="timeline-panel">
+              <div class="timeline-heading">
+                <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+              </div>
+              <div class="timeline-body">
+                <p>Lorem Ipsum</p>
               </div>
             </div>
+          </li>
+          <li class="timeline-inverted">
+            <div class="timeline-badge warning"><i class="glyphicon glyphicon-credit-card"></i></div>
+            <div class="timeline-panel">
+              <div class="timeline-heading">
+                <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+              </div>
+              <div class="timeline-body">
+                <p>Lorem Ipsum</p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="timeline-badge"><i class="glyphicon glyphicon-check"></i></div>
+            <div class="timeline-panel">
+              <div class="timeline-heading">
+                <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+              </div>
+              <div class="timeline-body">
+                <p>Lorem Ipsum</p>
+              </div>
+            </div>
+          </li>
+          <li class="timeline-inverted">
+            <div class="timeline-badge warning"><i class="glyphicon glyphicon-credit-card"></i></div>
+            <div class="timeline-panel">
+              <div class="timeline-heading">
+                <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+              </div>
+              <div class="timeline-body">
+                <p>Lorem Ipsum</p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="timeline-badge"><i class="glyphicon glyphicon-check"></i></div>
+            <div class="timeline-panel">
+              <div class="timeline-heading">
+                <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+              </div>
+              <div class="timeline-body">
+                <p>Lorem Ipsum</p>
+              </div>
+            </div>
+          </li>
+          <li class="timeline-inverted">
+            <div class="timeline-badge warning"><i class="glyphicon glyphicon-credit-card"></i></div>
+            <div class="timeline-panel">
+              <div class="timeline-heading">
+                <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+              </div>
+              <div class="timeline-body">
+                <p>Lorem Ipsum</p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="timeline-badge"><i class="glyphicon glyphicon-check"></i></div>
+            <div class="timeline-panel">
+              <div class="timeline-heading">
+                <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+              </div>
+              <div class="timeline-body">
+                <p>Lorem Ipsum</p>
+              </div>
+            </div>
+          </li>
+          <li class="timeline-inverted">
+            <div class="timeline-badge warning"><i class="glyphicon glyphicon-credit-card"></i></div>
+            <div class="timeline-panel">
+              <div class="timeline-heading">
+                <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+              </div>
+              <div class="timeline-body">
+                <p>Lorem Ipsum</p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="timeline-badge"><i class="glyphicon glyphicon-check"></i></div>
+            <div class="timeline-panel">
+              <div class="timeline-heading">
+                <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+              </div>
+              <div class="timeline-body">
+                <p>Lorem Ipsum</p>
+              </div>
+            </div>
+          </li>
+          <li class="timeline-inverted">
+            <div class="timeline-badge warning"><i class="glyphicon glyphicon-credit-card"></i></div>
+            <div class="timeline-panel">
+              <div class="timeline-heading">
+                <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+              </div>
+              <div class="timeline-body">
+                <p>Lorem Ipsum</p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="timeline-badge"><i class="glyphicon glyphicon-check"></i></div>
+            <div class="timeline-panel">
+              <div class="timeline-heading">
+                <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+              </div>
+              <div class="timeline-body">
+                <p>Lorem Ipsum</p>
+              </div>
+            </div>
+          </li>
+          <li class="timeline-inverted">
+            <div class="timeline-badge warning"><i class="glyphicon glyphicon-credit-card"></i></div>
+            <div class="timeline-panel">
+              <div class="timeline-heading">
+                <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+              </div>
+              <div class="timeline-body">
+                <p>Lorem Ipsum</p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="timeline-badge"><i class="glyphicon glyphicon-check"></i></div>
+            <div class="timeline-panel">
+              <div class="timeline-heading">
+                <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+              </div>
+              <div class="timeline-body">
+                <p>Lorem Ipsum</p>
+              </div>
+            </div>
+          </li>
+          <li class="timeline-inverted">
+            <div class="timeline-badge warning"><i class="glyphicon glyphicon-credit-card"></i></div>
+            <div class="timeline-panel">
+              <div class="timeline-heading">
+                <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+              </div>
+              <div class="timeline-body">
+                <p>Lorem Ipsum</p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="timeline-badge"><i class="glyphicon glyphicon-check"></i></div>
+            <div class="timeline-panel">
+              <div class="timeline-heading">
+                <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+              </div>
+              <div class="timeline-body">
+                <p>Lorem Ipsum</p>
+              </div>
+            </div>
+          </li>
+          <li class="timeline-inverted">
+            <div class="timeline-badge warning"><i class="glyphicon glyphicon-credit-card"></i></div>
+            <div class="timeline-panel">
+              <div class="timeline-heading">
+                <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+              </div>
+              <div class="timeline-body">
+                <p>Lorem Ipsum</p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="timeline-badge"><i class="glyphicon glyphicon-check"></i></div>
+            <div class="timeline-panel">
+              <div class="timeline-heading">
+                <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+              </div>
+              <div class="timeline-body">
+                <p>Lorem Ipsum</p>
+              </div>
+            </div>
+          </li>
+          <li class="timeline-inverted">
+            <div class="timeline-badge warning"><i class="glyphicon glyphicon-credit-card"></i></div>
+            <div class="timeline-panel">
+              <div class="timeline-heading">
+                <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+              </div>
+              <div class="timeline-body">
+                <p>Lorem Ipsum</p>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
