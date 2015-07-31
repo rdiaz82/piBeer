@@ -9,10 +9,14 @@
     editModalTitle='{{ editModalTitle }}';
     deleteModalTitle='{{ deleteModalTitle }}';
     deleteModalConfirmation='{{ deleteModalConfirmation }}';
+    newIngredientModalTitle='{{ newIngredientModalTitle }}';
+    deleteIngredientModalConfirmation='{{ newIngredientModalConfirmation }}';
     newRecipeUrl="{% url 'recipe_manager_add_edit_recipe' recipe_id=-1 %}";
     deleteRecipeUrl="{% url 'recipe_manager_delete_recipe' recipe_id=-1 %}";
     filterRecipeUrl="{% url 'recipe_manager_filter_recipe' %}";
     selectRecipeUrl="{% url 'recipe_manager_get_details' recipe_id=-1 %}";
+    newIngredientUrl="{% url 'recipe_manager_add_edit_ingredient' recipe_id=-1 ingredient_id=-2 %}";
+
   </script>
 {% endblock %}
 

@@ -6,6 +6,7 @@ from .forms import ProductForm
 from .forms import ProductFilterForm
 from .forms import RecipeFilterForm
 from .forms import RecipeForm
+from .forms import IngredientForm
 
 
 def products(request):
@@ -30,7 +31,9 @@ def recipes(request):
               "newModalTitle": "New Recipe",
               "editModalTitle": "Edit Recipe",
               "deleteModalTitle": "Delete Recipe",
-              "deleteModalConfirmation": "Are you sure to delete the recipe?", }
+              "deleteModalConfirmation": "Are you sure to delete the recipe?",
+              "newIngredientModalTitle":"New Ingredient",
+              "deleteIngredientModalTitle":"Are you sure to delete the ingredient?",}
     return render(request, 'recipeManager/mainRecipes.html',context)
 
 
@@ -132,3 +135,29 @@ def ajax_get_recipe_details(request,recipe_id):
     response = render(
     request, 'recipeManager/recipeDetails.html', {'recipe': item},)
     return response
+
+def ajax_create_edit_ingredient_form(request,recipe_id,ingredient_id):
+    if (request.method == 'POST'):
+        if recipe_id != '-1':
+            item = Recipe.objects.get(id=recipe_id)
+            form = RecipeForm(request.POST or None, instance=item)
+        else:
+            form = RecipeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            recipes = Recipe.objects.all()
+            response = render(
+            request, 'recipeManager/recipeTable.html', {'recipe_list': recipes},)
+            return response
+        else:
+            response = render(
+            request, 'recipeManager/modalNewIngredientForm.html', {'form': form}, status=400)
+            return response
+    else:
+        if recipe_id != '-1':
+            item = Recipe.objects.get(id=recipe_id)
+            form = RecipeForm(instance=item)
+        else:
+            form = IngredientForm()
+        products=Product.objects.all()
+        return render(request, 'recipeManager/modalNewIngredientForm.html', {'product_list':products,'form': form},)

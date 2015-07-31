@@ -118,6 +118,23 @@ function filterElements(button){
     });
 }
 
+function openIngredientModal(){
+  $('#mainModal').modal('show');
+  $('.modal-title').html(newIngredientModalTitle);
+  $('.modal-body').html('<div class="fluid-container">' +
+    '<div class="row">' +
+    '<div class="col-lg-12 text-center">' +
+    '<i class="fa fa-spinner fa-5x fa-spin"></i>' +
+    '</div></div></div>');
+  $.ajax({
+    url: newIngredientUrl,
+    success: function(result) {
+      $(".modal-body").html(result);
+      $('#id_product').select2();
+    }
+  });
+}
+
 $(document).ready(function() {
   $('#errorAlert').hide();
   if ($('#mainTable>tbody>tr').length!=0){

@@ -12,7 +12,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = ('name', 'product_type','description')
 
 class IngredientAdmin(admin.ModelAdmin):
-    list_display=('recipe','product','quantity')
+    list_display=('recipe','product','quantity','unit')
 
 class RecipeAdmin(admin.ModelAdmin):
     list_display=('name','description')

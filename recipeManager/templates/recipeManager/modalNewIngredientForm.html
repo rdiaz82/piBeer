@@ -1,0 +1,23 @@
+<div class="fluid-container">
+  <div class="row">
+    <div class="col-lg-12">
+      <form id="mainForm" method="post">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        {% for field in form %}
+        <div class="form-group {% if field.errors %}has-error{% endif %}">
+            <label class="control-label">{{field.label}}</label>
+            {{ field }}
+            {% if field.errors %}
+              <p class="help-block">
+                {% for error in field.errors %}
+                  {{error}}<br/>
+                {% endfor %}
+              </p>
+            {% endif %}
+        </div>
+        {% endfor %}
+      </form>
+    </div>
+  </div>
+</div>
