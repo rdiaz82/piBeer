@@ -56,8 +56,9 @@ class RecipeFilterForm(forms.Form):
 
 class IngredientForm(forms.Form):
     product=forms.ChoiceField(label='Product',choices=get_product_choices(), widget=Select(attrs={'class': "form-control"}))
-    quantity=forms.CharField(label='Quantity',widget=TextInput(attrs={'class': "form-control selectSearch",style:'width: 100%'}))
+    quantity=forms.CharField(label='Quantity',widget=TextInput(attrs={'class': "form-control selectSearch",'style':'width: 100%'}))
     unit=forms.ChoiceField(label='Unit',choices=get_unit_choices(), widget=Select(attrs={'class': "form-control"}))
+    recipe=forms.CharField(label="",widget=HiddenInput())
             # 'product': Select(attrs={'class': 'form-control'}),
             # 'quantity': TextInput(attrs={'class': 'form-control'}),
             # 'unit': Select(attrs={'class': 'form-control'},choices=MEDIA_CHOICES),
