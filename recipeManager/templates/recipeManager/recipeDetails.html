@@ -1,3 +1,5 @@
+{% if recipe %}
+
 <div class="tabbable">
   <ul class="nav nav-tabs navbar-custom">
     <li class="navbar-link active"><a data-toggle="tab" href="#tab1">General Information</a></li>
@@ -322,3 +324,13 @@
     </div>
   </div>
 </div>
+
+{% else %}
+<div class="row" style="margin-top:50px; color:#AAAAAA;">
+  <div class="col-lg-12 text-center">
+    <p ><i class="ion-5x ionicons ion-ios-pint"></i></p>
+    <h3>Uppss, there is no recipe!!<h3>
+      <h3>Start now to design your best creation</h3>
+  </div>
+</div>
+{% endif %}
