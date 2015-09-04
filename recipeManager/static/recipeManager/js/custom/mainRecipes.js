@@ -1,7 +1,11 @@
 var selectedRow=-1;
+var selectedIngredientRow=-1;
+var modalType="";
+var currentRecipeId=0;
+
 
 function openCreateModal() {
-
+  mainModal="newRecipe"
   $('#mainModal').modal('show');
   $('.modal-title').html(newModalTitle);
   $('.modal-body').html('<div class="fluid-container">' +
@@ -50,6 +54,16 @@ function openDeleteModal(){
 
 function submitForm(button) {
   $(button).prop('disabled','true');
+
+  if (mainModal=="newRecipe"){
+    sendNewRecipeForm(button);
+  } else if (mainModal=="newIngredient"){
+    sendNewIngredientForm(button);
+  }
+
+}
+
+function sendNewRecipeForm(button){
   if (selectedRow!=-1)
     url=newRecipeUrl.replace("-1",selectedRow);
   else
@@ -61,6 +75,31 @@ function submitForm(button) {
         $('#mainModal').modal('hide');
         $(button).removeAttr('disabled')
         selectedRow=-1;
+  })
+  .fail( function(xhr, textStatus, errorThrown) {
+        if (errorThrown=="BAD REQUEST"){
+          $(".modal-body").html(xhr.responseText);
+          $(button).removeAttr('disabled')
+        }else{
+          bootbox.alert("Problem with connection, please, try again.");
+          $(button).removeAttr('disabled')
+        }
+    });
+}
+
+function sendNewIngredientForm(button){
+  if (selectedIngredientRow!=-1)
+    url=newIngredientUrl.replace("-1",selectedIngredientRow);
+  else
+    url =newIngredientUrl;
+  $("#id_recipe").val(currentRecipeId);
+
+  $.post(url, $('#mainForm').serialize())
+  .done(function(data){
+        $('#mainTable').html(data);
+        $('#mainModal').modal('hide');
+        $(button).removeAttr('disabled')
+        selectedIngredientRow=-1;
   })
   .fail( function(xhr, textStatus, errorThrown) {
         if (errorThrown=="BAD REQUEST"){
@@ -127,10 +166,11 @@ function openIngredientModal(){
     '<i class="fa fa-spinner fa-5x fa-spin"></i>' +
     '</div></div></div>');
   $.ajax({
-    url: newIngredientUrl,
+    url: newIngredientUrl.replace("-1",selectedIngredientRow),
     success: function(result) {
       $(".modal-body").html(result);
       $('#id_product').select2();
+      mainModal="newIngredient";
     }
   });
 }
@@ -139,6 +179,6 @@ $(document).ready(function() {
   $('#errorAlert').hide();
   if ($('#mainTable>tbody>tr').length!=0){
     $('#mainTable>tbody>tr:first').addClass("info");
-    selectedRow=1;
+    currentRecipeId=$('#mainTable>tbody>tr:first').attr("data-id");
   }
 });

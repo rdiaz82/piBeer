@@ -103,6 +103,20 @@ html, body{
 	margin-left: 30px;
 }
 
+.select2-selection--single{
+	border: 1px solid #CECECE !important;
+	height: 35px !important;
+	line-height: 32px !important;
+
+}
+
+.select2-selection__arrow{
+	top:5px !important;
+}
+
+
+
+
 
 @media(min-width:768px) {
 	.hiddenInLarge{

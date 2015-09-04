@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from recipeManager.models import Product
 from recipeManager.models import Recipe
+from recipeManager.models import Ingredient
 from .forms import ProductForm
 from .forms import ProductFilterForm
 from .forms import RecipeFilterForm
@@ -136,15 +137,21 @@ def ajax_get_recipe_details(request,recipe_id):
     request, 'recipeManager/recipeDetails.html', {'recipe': item},)
     return response
 
-def ajax_create_edit_ingredient_form(request,recipe_id,ingredient_id):
+def ajax_create_edit_ingredient_form(request,ingredient_id):
     if (request.method == 'POST'):
-        if recipe_id != '-1':
-            item = Recipe.objects.get(id=recipe_id)
-            form = RecipeForm(request.POST or None, instance=item)
+        if ingredient_id != '-1':
+            item = Ingredient.objects.get(id=ingredient_id)
+            form = IngredientForm(request.POST or None, instance=item)
         else:
-            form = RecipeForm(request.POST)
+            form = IngredientForm(request.POST)
         if form.is_valid():
-            form.save()
+            cd=form.cleaned_data
+            print(cd)
+            ingredient=Ingredient(quantity=cd["quantity"])
+            ingredient.product_id=cd["product"]
+            ingredient.unit_id=cd["unit"]
+            ingredient.recipe_id=cd["recipe"]
+            ingredient.save();
             recipes = Recipe.objects.all()
             response = render(
             request, 'recipeManager/recipeTable.html', {'recipe_list': recipes},)
@@ -154,10 +161,9 @@ def ajax_create_edit_ingredient_form(request,recipe_id,ingredient_id):
             request, 'recipeManager/modalNewIngredientForm.html', {'form': form}, status=400)
             return response
     else:
-        if recipe_id != '-1':
-            item = Recipe.objects.get(id=recipe_id)
-            form = RecipeForm(instance=item)
+        if ingredient_id != '-1':
+            item = Ingredient.objects.get(id=ingredient_id)
+            form = IngredientForm(instance=item)
         else:
             form = IngredientForm()
-        products=Product.objects.all()
-        return render(request, 'recipeManager/modalNewIngredientForm.html', {'product_list':products,'form': form},)
+        return render(request, 'recipeManager/modalNewIngredientForm.html', {'form': form},)
