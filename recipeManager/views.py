@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from recipeManager.models import Product
+from recipeManager.models import ProductType
 from recipeManager.models import Recipe
 from recipeManager.models import Ingredient
 from .forms import ProductForm
@@ -26,6 +27,10 @@ def products(request):
 def recipes(request):
     recipes = Recipe.objects.all()
     filterForm= RecipeFilterForm()
+    if recipes.count!=0:
+        recipeIngredients=Ingredient.objects.ingredient_by_product_type(recipes[0].id)
+    else:
+        recipeIngredients={}
     context = {"title": "Recipes",
               "filter_form": filterForm,
               "recipe_list": recipes,
@@ -34,7 +39,8 @@ def recipes(request):
               "deleteModalTitle": "Delete Recipe",
               "deleteModalConfirmation": "Are you sure to delete the recipe?",
               "newIngredientModalTitle":"New Ingredient",
-              "deleteIngredientModalTitle":"Are you sure to delete the ingredient?",}
+              "deleteIngredientModalTitle":"Are you sure to delete the ingredient?",
+              "ingredients":recipeIngredients}
     return render(request, 'recipeManager/mainRecipes.html',context)
 
 
@@ -133,8 +139,11 @@ def ajax_filter_recipe(request):
 
 def ajax_get_recipe_details(request,recipe_id):
     item = Recipe.objects.get(id=recipe_id)
+    recipeIngredients=Ingredient.objects.ingredient_by_product_type(recipe_id)
     response = render(
-    request, 'recipeManager/recipeDetails.html', {'recipe': item},)
+    request, 'recipeManager/recipeDetails.html', {
+    'recipe': item,
+    'ingredients':recipeIngredients},)
     return response
 
 def ajax_create_edit_ingredient_form(request,ingredient_id):

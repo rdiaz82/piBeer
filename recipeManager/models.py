@@ -24,12 +24,22 @@ class Recipe (models.Model):
     def __str__(self):
         return self.name
 
+class IngredientManager(models.Manager):
+    def ingredient_by_product_type(self, recipe_id):
+        productsType=ProductType.objects.all()
+        recipeProducts={}
+        for simpleType in productsType:
+            recipeIngredients=self.filter(recipe_id=recipe_id,product__product_type=simpleType)
+            if recipeIngredients.count()!=0:
+                recipeProducts[simpleType.name]=recipeIngredients
+        return recipeProducts
 
 class Ingredient (models.Model):
     product=models.ForeignKey(Product)
     quantity=models.DecimalField(max_digits=6, decimal_places=2)
     unit=models.ForeignKey('configurationManager.Unit',limit_choices_to={'is_recipe_unit': True})
     recipe=models.ForeignKey(Recipe)
+    objects=IngredientManager()
 
     def __str__(self):
         return self.product.name

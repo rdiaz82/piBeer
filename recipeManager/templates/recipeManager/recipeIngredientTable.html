@@ -1,0 +1,35 @@
+{% if ingredients.items %}
+
+{% for key, product_list in ingredients.items %}
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4>{{key}}</h4>
+  </div>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th class="col-md-8">Name</th>
+        <th class="col-md-4">Quantity</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for simpleProduct in product_list %}
+      <tr>
+        <td class="col-md-8">{{simpleProduct.product.name}}</td>
+        <td class="col-md-4">{{simpleProduct.quantity}} {{simpleProduct.unit.symbol}}</td>
+      </tr>
+      {% endfor %}
+
+    </tbody>
+  </table>
+</div>
+{% endfor %}
+{% else %}
+<div class="row" style="margin-top:50px; color:#AAAAAA;">
+  <div class="col-lg-12 text-center">
+    <p ><i class="ion-5x ionicons ion-ios-flask"></i></p>
+    <h3>Uppss, there is no ingredients!!<h3>
+      <h3>Start now to create your combination</h3>
+  </div>
+</div>
+{% endif %}

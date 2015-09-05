@@ -25,96 +25,9 @@
       </div>
       <div class="container" style="width:700px;">
         <div style="height:55px"></div>
-        <div class="panel panel-default">
-          <!-- Default panel contents -->
-          <div class="panel-heading">
-            <h4>Malta</h4>
+          <div id="ingredientsTable">
+            {% include "recipeManager/recipeIngredientTable.html" with ingredients=ingredients %}
           </div>
-          <!-- Table -->
-          <table class="table table-bordered table-striped">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Quantity</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Pale Ale</td>
-                <td>1200g</td>
-              </tr>
-              <tr>
-                <td>Caramel</td>
-                <td>1000g</td>
-              </tr>
-              <tr>
-                <td>Chocolate</td>
-                <td>200g</td>
-              </tr>
-              <tr>
-                <td>Abadía</td>
-                <td>100g</td>
-              </tr>
-
-            </tbody>
-          </table>
-        </div>
-        <div class="panel panel-default">
-          <div class="panel-heading"><h4>Lúpulo</h4></div>
-          <table class="table table-bordered table-striped">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Quantity</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Nelson</td>
-                <td>50g</td>
-              </tr>
-              <tr>
-                <td>East Kent Golding</td>
-                <td>100g</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="panel panel-default">
-          <div class="panel-heading"><h4>Aditivos</h4></div>
-          <table class="table table-bordered table-striped">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Quantity</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Candy Sugar</td>
-                <td>250g</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="panel panel-default">
-          <div class="panel-heading"><h4>Otros</h4></div>
-          <table class="table table-bordered table-striped">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Quantity</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Agua</td>
-                <td>25L</td>
-              </tr>
-              </tbody>
-          </table>
-        </div>
-
         <div style="height:55px"></div>
       </div>
     </div>
