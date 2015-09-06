@@ -5,7 +5,7 @@
   <div class="panel-heading">
     <h4>{{key}}</h4>
   </div>
-  <table class="table table-bordered table-striped">
+  <table class="table table-bordered table-striped ingredientTable">
     <thead>
       <tr>
         <th class="col-md-8">Name</th>
@@ -14,7 +14,7 @@
     </thead>
     <tbody>
       {% for simpleProduct in product_list %}
-      <tr>
+      <tr data-id="{{simpleProduct.id}}" onclick="ingredientRowClick(this);">
         <td class="col-md-8">{{simpleProduct.product.name}}</td>
         <td class="col-md-4">{{simpleProduct.quantity}} {{simpleProduct.unit.symbol}}</td>
       </tr>

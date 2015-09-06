@@ -148,31 +148,46 @@ def ajax_get_recipe_details(request,recipe_id):
 
 def ajax_create_edit_ingredient_form(request,ingredient_id):
     if (request.method == 'POST'):
+        print
         if ingredient_id != '-1':
             item = Ingredient.objects.get(id=ingredient_id)
-            form = IngredientForm(request.POST or None, instance=item)
+            print (item.quantity)
+            form = IngredientForm(request.POST or None)
+            if form.is_valid():
+                cd=form.cleaned_data
+                item.product_id=cd["product"]
+                item.unit_id=cd["unit"]
+                item.recipe_id=cd["recipe"]
+                item.quantity=cd["quantity"]
+                print (item.quantity)
+                item.save()
+            else:
+                response = render(
+                request, 'recipeManager/modalNewIngredientForm.html', {'form': form}, status=400)
+                return response
         else:
             form = IngredientForm(request.POST)
-        if form.is_valid():
-            cd=form.cleaned_data
-            print(cd)
-            ingredient=Ingredient(quantity=cd["quantity"])
-            ingredient.product_id=cd["product"]
-            ingredient.unit_id=cd["unit"]
-            ingredient.recipe_id=cd["recipe"]
-            ingredient.save();
-            recipes = Recipe.objects.all()
-            response = render(
-            request, 'recipeManager/recipeTable.html', {'recipe_list': recipes},)
-            return response
-        else:
-            response = render(
-            request, 'recipeManager/modalNewIngredientForm.html', {'form': form}, status=400)
-            return response
+            if form.is_valid():
+                cd=form.cleaned_data
+                print(cd)
+                ingredient=Ingredient(quantity=cd["quantity"])
+                ingredient.product_id=cd["product"]
+                ingredient.unit_id=cd["unit"]
+                ingredient.recipe_id=cd["recipe"]
+                ingredient.save();
+            else:
+                response = render(
+                request, 'recipeManager/modalNewIngredientForm.html', {'form': form}, status=400)
+                return response
+        recipeIngredients=Ingredient.objects.ingredient_by_product_type(cd["recipe"])
+        response = render(
+        request, 'recipeManager/recipeIngredientTable.html', {'ingredients':recipeIngredients},)
+        return response
+
     else:
         if ingredient_id != '-1':
             item = Ingredient.objects.get(id=ingredient_id)
-            form = IngredientForm(instance=item)
+            form = IngredientForm(initial={"product":item.product.id,"quantity":item.quantity,"unit":item.unit.id,"recipe":item.recipe.id})
         else:
             form = IngredientForm()
         return render(request, 'recipeManager/modalNewIngredientForm.html', {'form': form},)

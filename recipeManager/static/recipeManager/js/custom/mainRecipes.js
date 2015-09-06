@@ -7,8 +7,8 @@ var currentRecipeId=0;
 function openCreateModal() {
   mainModal="newRecipe"
   $('#mainModal').modal('show');
-  $('.modal-title').html(newModalTitle);
-  $('.modal-body').html('<div class="fluid-container">' +
+  $('#mainModal').find('.modal-title').html(newModalTitle);
+  $('#mainModal>.modal-body').html('<div class="fluid-container">' +
     '<div class="row">' +
     '<div class="col-lg-12 text-center">' +
     '<i class="fa fa-spinner fa-5x fa-spin"></i>' +
@@ -16,7 +16,7 @@ function openCreateModal() {
   $.ajax({
     url: newRecipeUrl,
     success: function(result) {
-      $(".modal-body").html(result);
+      $("#mainModal").find(".modal-body").html(result);
     }
   });
 }
@@ -29,8 +29,8 @@ function openEditModal(){
   }
 
   $('#mainModal').modal('show');
-  $('.modal-title').html(newModalTitle);
-  $('.modal-body').html('<div class="fluid-container">' +
+  $('#mainModal').find('.modal-title').html(newModalTitle);
+  $("#mainModal").find(".modal-body").html('<div class="fluid-container">' +
     '<div class="row">' +
     '<div class="col-lg-12 text-center">' +
     '<i class="fa fa-spinner fa-5x fa-spin"></i>' +
@@ -38,7 +38,7 @@ function openEditModal(){
   $.ajax({
     url: newRecipeUrl.replace('-1',selectedRow),
     success: function(result) {
-      $(".modal-body").html(result);
+      $("#mainModal").find(".modal-body").html(result);
     }
   });
 }
@@ -58,7 +58,9 @@ function submitForm(button) {
   if (mainModal=="newRecipe"){
     sendNewRecipeForm(button);
   } else if (mainModal=="newIngredient"){
-    sendNewIngredientForm(button);
+    sendNewEditIngredientForm(button);
+  } else if (mainModal="editIngredient"){
+    sendNewEditIngredientForm(button);
   }
 
 }
@@ -78,7 +80,7 @@ function sendNewRecipeForm(button){
   })
   .fail( function(xhr, textStatus, errorThrown) {
         if (errorThrown=="BAD REQUEST"){
-          $(".modal-body").html(xhr.responseText);
+          $("#mainModal").find(".modal-body").html(xhr.responseText);
           $(button).removeAttr('disabled')
         }else{
           bootbox.alert("Problem with connection, please, try again.");
@@ -87,23 +89,27 @@ function sendNewRecipeForm(button){
     });
 }
 
-function sendNewIngredientForm(button){
+function sendNewEditIngredientForm(button){
   if (selectedIngredientRow!=-1)
     url=newIngredientUrl.replace("-1",selectedIngredientRow);
   else
     url =newIngredientUrl;
-  $("#id_recipe").val(currentRecipeId);
+  if (selectedIngredientRow==-1)
+    $("#id_recipe").val(currentRecipeId);
 
   $.post(url, $('#mainForm').serialize())
   .done(function(data){
+    if (mainModal=="newRecipe")
         $('#mainTable').html(data);
-        $('#mainModal').modal('hide');
-        $(button).removeAttr('disabled')
-        selectedIngredientRow=-1;
+    else if (mainModal=="newIngredient" || mainModal=="editIngredient")
+    $('#ingredientsTable').html(data);
+    $('#mainModal').modal('hide');
+    $(button).removeAttr('disabled')
+    selectedIngredientRow=-1;
   })
   .fail( function(xhr, textStatus, errorThrown) {
         if (errorThrown=="BAD REQUEST"){
-          $(".modal-body").html(xhr.responseText);
+          $("#mainModal").find(".modal-body").html(xhr.responseText);
           $(button).removeAttr('disabled')
         }else{
           bootbox.alert("Problem with connection, please, try again.");
@@ -159,8 +165,8 @@ function filterElements(button){
 
 function openIngredientModal(){
   $('#mainModal').modal('show');
-  $('.modal-title').html(newIngredientModalTitle);
-  $('.modal-body').html('<div class="fluid-container">' +
+  $('#mainModal').find('.modal-title').html(newIngredientModalTitle);
+  $('#mainModal').find('.modal-body').html('<div class="fluid-container">' +
     '<div class="row">' +
     '<div class="col-lg-12 text-center">' +
     '<i class="fa fa-spinner fa-5x fa-spin"></i>' +
@@ -171,6 +177,42 @@ function openIngredientModal(){
       $(".modal-body").html(result);
       $('#id_product').select2();
       mainModal="newIngredient";
+    }
+  });
+}
+
+function ingredientRowClick(row){
+  currentRow=$(row).attr("data-id");
+  $('.ingredientTable>tbody>tr').removeClass("info");
+  if (currentRow==selectedIngredientRow){
+    selectedIngredientRow=-1;
+    return
+  } else {
+      selectedIngredientRow=currentRow;
+  }
+  $(row).addClass("info");
+}
+
+function editIngredientOpenModal(button){
+  if (selectedIngredientRow==-1){
+    $('#errorAlert').slideDown(500);
+    $("#errorAlert").fadeTo(2000, 500).slideUp(500);
+    return;
+  }
+
+  $('#mainModal').modal('show');
+  $('#mainModal').find('.modal-title').html(newModalTitle);
+  $('#mainModal').find('.modal-body').html('<div class="fluid-container">' +
+    '<div class="row">' +
+    '<div class="col-lg-12 text-center">' +
+    '<i class="fa fa-spinner fa-5x fa-spin"></i>' +
+    '</div></div></div>');
+  $.ajax({
+    url: newIngredientUrl.replace("-1",selectedIngredientRow),
+    success: function(result) {
+      $('#mainModal').find(".modal-body").html(result);
+      $('#id_product').select2();
+      modalType="editIngredient";
     }
   });
 }
