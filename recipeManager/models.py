@@ -26,7 +26,7 @@ class Recipe (models.Model):
 
 class IngredientManager(models.Manager):
     def ingredient_by_product_type(self, recipe_id):
-        productsType=ProductType.objects.all()
+        productsType=ProductType.objects.all().order_by('name')
         recipeProducts={}
         for simpleType in productsType:
             recipeIngredients=self.filter(recipe_id=recipe_id,product__product_type=simpleType)

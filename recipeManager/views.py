@@ -191,3 +191,12 @@ def ajax_create_edit_ingredient_form(request,ingredient_id):
         else:
             form = IngredientForm()
         return render(request, 'recipeManager/modalNewIngredientForm.html', {'form': form},)
+
+def ajax_delete_recipe_ingredient(request,ingredient_id):
+    ingredient=Ingredient.objects.get(id=ingredient_id)
+    recipe_id=ingredient.recipe.id
+    ingredient.delete()
+    recipeIngredients=Ingredient.objects.ingredient_by_product_type(recipe_id)
+    response = render(
+    request, 'recipeManager/recipeIngredientTable.html', {'ingredients':recipeIngredients},)
+    return response

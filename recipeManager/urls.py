@@ -13,4 +13,5 @@ urlpatterns = [
     url(r'^recipes/filter/$', views.ajax_filter_recipe, name='recipe_manager_filter_recipe'),
     url(r'^recipes/select/(?P<recipe_id>-?[0-9]+)/$', views.ajax_get_recipe_details, name='recipe_manager_get_details'),
     url(r'^recipes/create/ingredient/(?P<ingredient_id>-?[0-9]+)/$', views.ajax_create_edit_ingredient_form, name='recipe_manager_add_edit_ingredient'),
+    url(r'^recipes/delete/ingredient/(?P<ingredient_id>-?[0-9]+)/$', views.ajax_delete_recipe_ingredient, name='recipe_manager_delete_recipe_ingredient'),
 ]

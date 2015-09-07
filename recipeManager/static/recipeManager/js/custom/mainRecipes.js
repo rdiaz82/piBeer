@@ -49,6 +49,7 @@ function openDeleteModal(){
     $("#errorAlert").fadeTo(2000, 500).slideUp(500);
     return;
   }
+  modalType="deleteRecipe";
   $('#deleteModal').modal('show');
 }
 
@@ -119,11 +120,27 @@ function sendNewEditIngredientForm(button){
 }
 
 function deleteElement(){
+  if (modalType=="deleteRecipe")
+    deleteRecipe();
+  else if (modalType=="deleteIngredient")
+    deleteIngredient();
+}
+
+function deleteRecipe(){
   $.get(deleteRecipeUrl.replace("-1",selectedRow))
   .done(function(data){
         $('#mainTable').html(data);
         $('#deleteModal').modal('hide');
         selectedRow=-1;
+  });
+}
+
+function deleteIngredient(){
+  $.get(deleteIngredientUrl.replace("-1",selectedIngredientRow))
+  .done(function(data){
+        $('#ingredientsTable').html(data);
+        $('#deleteModal').modal('hide');
+        selectedIngredientRow=-1;
   });
 }
 
@@ -135,6 +152,7 @@ function rowClick(row){
     $.get(url)
     .done(function(data){
           $('#detailPanel').html(data);
+          currentRecipeId=selectedRow;
     })
     .fail( function(xhr, textStatus, errorThrown) {
         bootbox.alert("Problem with connection, please, try again.");
@@ -174,7 +192,7 @@ function openIngredientModal(){
   $.ajax({
     url: newIngredientUrl.replace("-1",selectedIngredientRow),
     success: function(result) {
-      $(".modal-body").html(result);
+      $('#mainModal').find(".modal-body").html(result);
       $('#id_product').select2();
       mainModal="newIngredient";
     }
@@ -215,6 +233,17 @@ function editIngredientOpenModal(button){
       modalType="editIngredient";
     }
   });
+}
+
+function showModalDeleteIngredient(button){
+  if (selectedIngredientRow==-1){
+    $('#errorAlert').slideDown(500);
+    $("#errorAlert").fadeTo(2000, 500).slideUp(500);
+    return;
+  }
+  modalType="deleteIngredient";
+  $('#deleteModal').modal('show');
+
 }
 
 $(document).ready(function() {
