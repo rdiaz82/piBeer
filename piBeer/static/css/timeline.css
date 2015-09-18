@@ -13,6 +13,7 @@
         background-color: #eeeeee;
         left: 50%;
         margin-left: -1.5px;
+        z-index:12;
     }
 
     .timeline > li {
@@ -49,6 +50,7 @@
             position: relative;
             -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
             box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
+            z-index:12;
         }
 
             .timeline > li > .timeline-panel:before {
@@ -140,6 +142,7 @@
 .timeline-body > p,
 .timeline-body > ul {
     margin-bottom: 0;
+    z-index:12;
 }
 
     .timeline-body > p + p {

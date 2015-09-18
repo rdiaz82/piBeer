@@ -4,6 +4,7 @@ from recipeManager.models import Product
 from recipeManager.models import ProductType
 from recipeManager.models import Recipe
 from recipeManager.models import Ingredient
+from recipeManager.models import Step
 from .forms import ProductForm
 from .forms import ProductFilterForm
 from .forms import RecipeFilterForm
@@ -29,8 +30,10 @@ def recipes(request):
     filterForm= RecipeFilterForm()
     if recipes.count!=0:
         recipeIngredients=Ingredient.objects.ingredient_by_product_type(recipes[0].id)
+        steps=Step.objects.steps_for_recipe(recipes[0].id)
     else:
         recipeIngredients={}
+        steps={}
     context = {"title": "Recipes",
               "filter_form": filterForm,
               "recipe_list": recipes,
@@ -40,7 +43,8 @@ def recipes(request):
               "deleteModalConfirmation": "Are you sure to delete the recipe?",
               "newIngredientModalTitle":"New Ingredient",
               "deleteIngredientModalTitle":"Are you sure to delete the ingredient?",
-              "ingredients":recipeIngredients}
+              "ingredients":recipeIngredients,
+              "steps": steps}
     return render(request, 'recipeManager/mainRecipes.html',context)
 
 
@@ -91,7 +95,6 @@ def ajax_filter_product(request):
         request, 'recipeManager/productTable.html', {'product_list': list},)
     return response
 
-
 def ajax_create_edit_recipe_form(request, recipe_id):
   if (request.method == 'POST'):
     if recipe_id != '-1':
@@ -140,10 +143,13 @@ def ajax_filter_recipe(request):
 def ajax_get_recipe_details(request,recipe_id):
     item = Recipe.objects.get(id=recipe_id)
     recipeIngredients=Ingredient.objects.ingredient_by_product_type(recipe_id)
+    steps=Step.objects.steps_for_recipe(recipe_id)
     response = render(
     request, 'recipeManager/recipeDetails.html', {
     'recipe': item,
-    'ingredients':recipeIngredients},)
+    'ingredients':recipeIngredients,
+    'steps':steps},
+    )
     return response
 
 def ajax_create_edit_ingredient_form(request,ingredient_id):

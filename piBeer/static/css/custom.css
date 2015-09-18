@@ -37,6 +37,19 @@ html, body{
 	font-size:70px;
 }
 
+.ion-4x{
+	font-size:50px;
+}
+
+.ion-3x{
+	font-size:30px;
+	margin-top:10px;
+}
+
+.ion-2x{
+	font-size:20px;
+}
+
 .vspace20{
 	height:20px;
 }

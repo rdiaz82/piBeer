@@ -1,0 +1,32 @@
+{%if steps|length > 0 %}
+<ul class="timeline">
+{% for step in steps %}
+  <li {% if forloop.counter|divisibleby:2 %} class="timeline-inverted" {% endif %}>
+    <div class="timeline-badge {{step.step.step_type.ui_color}}"><i class="ionicons {{step.step.step_type.ui_icon}} ion-3x"></i></div>
+    <div class="timeline-panel">
+      <div class="timeline-heading">
+        <h4 class="timeline-title">{{step.step.step_type.name}}</h4>
+      </div>
+      <div class="timeline-body">
+        {% for implementationVar in step.additional_vars %}
+        <p>{{implementationVar.var_name.var_name}}: {{implementationVar.var_value}}
+          {% if implementationVar.var_name.use_ingredient%}
+            {{implementationVar.var_ingredient.unit.symbol}}
+          {% else %}
+            {{implementationVar.var_name.unit.symbol}}
+          {% endif %}</p>
+        {% endfor %}
+      </div>
+    </div>
+  </li>
+{% endfor %}
+</ul>
+{% else %}
+<div class="row" style="margin-top:50px; color:#AAAAAA;">
+  <div class="col-lg-12 text-center">
+    <p ><i class="ion-5x ionicons ion-clipboard"></i></p>
+    <h3>Upss, there is no indications!!<h3>
+      <h3>for your fabulous recipe</h3>
+  </div>
+</div>
+{% endif %}
